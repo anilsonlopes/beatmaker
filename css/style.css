@@ -56,4 +56,14 @@ body {
     flex: 0 1 100px;
     margin-bottom: 20px; }
 
+.ticks {
+  padding: 20px 5px;
+  display: flex;
+  flex-direction: column; }
+  .ticks input[type=radio] {
+    margin: 0;
+    box-sizing: border-box;
+    margin: 1.2em .5% 5px;
+    height: 1em; }
+
 /*# sourceMappingURL=style.css.map */

@@ -65,8 +65,12 @@
   };
   var slength = sounds.length;
   var $grid = document.querySelectorAll('.grid')[0];
+  var $ticks = document.querySelectorAll('.ticks')[0];
   var $button = document.createElement('button');
   $button.classList.add('beat');
+  var $inputRadio = document.createElement('input');
+  $inputRadio.type = 'radio';
+  $inputRadio.name = 'tick';
 
   for (var r = 0; r < slength; r++) {
     for (var c = 0; c < TICKS; c++) {
@@ -84,6 +88,13 @@
       }, false);
       $grid.appendChild(_$button);
     }
+
+    var $optionTick = $inputRadio.cloneNode(true);
+    $optionTick.value = r;
+    if (r === 0) {
+      $optionTick.checked = true;
+    }
+    $ticks.appendChild($optionTick);
   }
 
   var $beats = document.querySelectorAll('.beat');
@@ -117,7 +128,7 @@
   document.querySelector('#random_drum').addEventListener('click', setRandomBeat);
 
   var setRandomPatternTick = function () {
-    const tick = 7;
+    const tick = parseInt(document.querySelector('input[name=tick]:checked').value);
     for (var c = 0; c < TICKS; c++) {
       var num = Math.ceil(Math.random() * 100) % 3;
       if (num === 0) {
