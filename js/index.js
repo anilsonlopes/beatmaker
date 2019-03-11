@@ -2,7 +2,6 @@
   'use strict';
   var AudioContext = window.AudioContext || window.webkitAudioContext || false;
 
-  var BPM = 120;
   var TICKS = 16;
   var soundPrefix = 'https://blog.omgmog.net/beatmaker/sounds/';
   var sounds = [
@@ -167,15 +166,15 @@
 
   var currentTick = 0;
   var lastTick = TICKS - 1;
-  var tickTime = 1 / (4 * BPM / (60 * 1000));
 
-  var requestInterval = function(fn, delay) {
+  var requestInterval = function(fn) {
     var start = new Date().getTime();
     var handle = {};
 
     function loop() {
       var current = new Date().getTime();
       var delta = current - start;
+      var delay = 1 / (4 * parseInt(document.querySelector('#bpm').value) / (60 * 1000));
       if (delta >= delay) {
         fn.call();
         start = new Date().getTime();
@@ -185,6 +184,16 @@
     handle.value = requestAnimationFrame(loop);
     return handle;
   };
+
+  var getBpm = function () {
+    const bpm = parseInt(document.querySelector('#bpm').value);
+    return bpm;
+  };
+
+  var setBpm = function () {
+    window.BPM = parseInt(event.target.value);
+  };
+  document.querySelector('#bpm').addEventListener('change', setBpm);
 
   requestInterval(function() {
     for (var i = 0; i < slength; i++) {
@@ -200,5 +209,5 @@
     }
     lastTick = currentTick;
     currentTick = (currentTick + 1) % TICKS;
-  }, 1 / (4 * BPM / (60 * 1000)));
+  });
 }());
