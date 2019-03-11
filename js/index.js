@@ -114,8 +114,19 @@
       }
     }
   };
-  document.querySelector('#random').addEventListener('click', setRandomBeat);
+  document.querySelector('#random_drum').addEventListener('click', setRandomBeat);
 
+  var setRandomPatternTick = function () {
+    const tick = 7;
+    for (var c = 0; c < TICKS; c++) {
+      var num = Math.ceil(Math.random() * 100) % 3;
+      if (num === 0) {
+        $beats[c + (tick * TICKS)].classList.toggle('on');
+      }
+    }
+  };
+  document.querySelector('#random_ticks').addEventListener('click', setRandomPatternTick);
+  
   var exportBeat = function () {
     // create an object so we can jsonify it later
     var exportData = {}
